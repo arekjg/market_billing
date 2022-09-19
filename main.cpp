@@ -7,8 +7,8 @@ using namespace std;
 class shopping
 {
     private:
-        int pcode;
-        float price;
+        int pcode;      // product code
+        float price;    // price
         float dis;      // discount
         string pname;   // product name
 
@@ -25,41 +25,41 @@ class shopping
 
 void shopping::menu()
 {
-    m:      // where to jump
+    m:      // jump here
 
     int choice;
     string email;
     string password;
 
-    cout << "\t\t\t\t________________________________\n";
-    cout << "\t\t\t\t                                \n";
-    cout << "\t\t\t\t_____Supermarket Main Menu______\n";
-    cout << "\t\t\t\t                                \n";
-    cout << "\t\t\t\t________________________________\n";
-    cout << "\t\t\t\t|   1) Administrator    |\n";
-    cout << "\t\t\t\t|                       |\n";
-    cout << "\t\t\t\t|   2) Buyer            |\n";
-    cout << "\t\t\t\t|                       |\n";
-    cout << "\t\t\t\t|   3) Exit             |\n";
-    cout << "\t\t\t\t Please select!";
+    cout << "\t\t _____________________________________________ \n";
+    cout << "\t\t|                                             |\n";
+    cout << "\t\t|            Supermarket Main Menu            |\n";
+    cout << "\t\t|_____________________________________________|\n";
+    cout << "\t\t|                                             |\n";
+    cout << "\t\t|             1) Administrator                |\n";
+    cout << "\t\t|                                             |\n";
+    cout << "\t\t|             2) Buyer                        |\n";
+    cout << "\t\t|                                             |\n";
+    cout << "\t\t|_____________3) Exit_________________________|\n";
+    cout << "\n\t\t Please select: ";
     cin >> choice;
 
     switch (choice)
     {
     case 1:
-        cout << "\t\t\t Please login \n";
-        cout << "\t\t\t Enter Email: \n";
+        cout << "Please login \n";
+        cout << "Enter Email: ";
         cin >> email;
-        cout << "\t\t\t Enter password: \n";
+        cout << "Enter password: ";
         cin >> password;
 
-        if (email == "morty@gmail.com" && password == "rick")
+        if (email == "admin@gmail.com" && password == "admin")
         {
             administrator();
         }
         else
         {
-            cout << "Invalid email/password";
+            cout << "\nInvalid email/password\n\n";
         }
         break;
 
@@ -71,26 +71,29 @@ void shopping::menu()
         exit(0);
 
     default:
-        cout << "Please select from the given options";
+        cout << "\nPlease select from the given options\n\n";
     }
     goto m;     // jump statement
 }
 
 void shopping::administrator()
 {
-    m:      // where to jump
-    int choice;
+    jump_adm:       // jump here
 
-    cout << "\n\n\n\t\t\t  Administrator menu";
-    cout << "\n\t\t\t|_______1) Add the product___________|";
-    cout << "\n\t\t\t|                                    |";
-    cout << "\n\t\t\t|_______2) Modify the product________|";
-    cout << "\n\t\t\t|                                    |";
-    cout << "\n\t\t\t|_______3) Delete the product________|";
-    cout << "\n\t\t\t|                                    |";
-    cout << "\n\t\t\t|_______4) Back to the manu__________|";
+    int choice;     // administrator's choice
 
-    cout << "\n\n\t Please enter your choise";
+    cout << "\n\t\t _________Administrator menu_________";
+    cout << "\n\t\t|                                    |";
+    cout << "\n\t\t|       1) Add the product           |";
+    cout << "\n\t\t|                                    |";
+    cout << "\n\t\t|       2) Modify the product        |";
+    cout << "\n\t\t|                                    |";
+    cout << "\n\t\t|       3) Delete the product        |";
+    cout << "\n\t\t|                                    |";
+    cout << "\n\t\t|       4) Back to the manu          |";
+    cout << "\n\t\t|____________________________________|";
+
+    cout << "\n\n\t Please enter your choise: ";
     cin >> choice;
 
     switch (choice)
@@ -112,23 +115,25 @@ void shopping::administrator()
         break;
 
     default:
-        cout << "Invalid choice!";
+        cout << "\nInvalid choice!\n\n";
     }
-    goto m;     // jump statement
+    goto jump_adm;     // jump statement
 
 }
 
 void shopping::buyer()
 {
-    m:      // where to jump
-    int choice;
-    cout << "\t\t\t      Buyer      \n";
-    cout << "\t\t\t_________________\n";
-    cout << "                       \n";
-    cout << "\t\t\t  1) Buy product \n";
-    cout << "                       \n";
-    cout << "\t\t\t  2) Go back     \n";
-    cout << "\t\t\t Enter your choice: ";
+    jump_buy:      // jump here
+    
+    int choice;     // buyer's choice
+    
+    cout << "\n\t\t _________Buyer menu_________";
+    cout << "\n\t\t|                            |";
+    cout << "\n\t\t|       1) Buy product       |";
+    cout << "\n\t\t|                            |";
+    cout << "\n\t\t|       2) Go back           |";
+    cout << "\n\t\t|____________________________|";
+    cout << "\n\n\t\t    Enter your choice: ";
     cin >> choice;
 
     switch (choice)
@@ -141,14 +146,14 @@ void shopping::buyer()
         menu();
 
     default:
-        cout << "Invalid choice";
+        cout << "\nInvalid choice\n\n";
     }
-    goto m;     // jump statement
+    goto jump_buy;     // jump statement
 }
 
 void shopping::add()
 {
-    m:          // where to jump
+    jump_add:           // jump here
     fstream data;
     int c;              // code
     int token = 0;
@@ -156,14 +161,14 @@ void shopping::add()
     float d;            // discount
     string n;           // name
 
-    cout << "\n\n\t\t\t Add new product";
-    cout << "\n\n\t Code of the product";
+    cout << "\n\n\tAdd new product";
+    cout << "\n\n\tProduct code: ";
     cin >> pcode;
-    cout << "\n\n\t Name of the product";
+    cout << "\n\tName of the product: ";
     cin >> pname;
-    cout << "\n\n\t Proce of the product";
+    cout << "\n\tPrice of the product: ";
     cin >> price;
-    cout << "\n\n\t Discount on the product";
+    cout << "\n\tDiscount on the product: ";
     cin >> dis;
 
     data.open("database.txt", ios::in);
@@ -192,7 +197,7 @@ void shopping::add()
         // if token is 1, go back to menu to pass different product code
         if (token == 1)
         {
-            goto m;
+            goto jump_add;      // jump statement
         }
         else
         {
@@ -331,33 +336,35 @@ void shopping::receipt()
     fstream data;
     int arrc[100];              // array of codes
     int arrq[100];              // array of quantities
-    char choice;
+    char choice;                // user's choice
     int c = 0;                  // counter
-    float amount = 0;
-    float dis = 0;
-    float total = 0;
+    float amount = 0;           // amount of bought product
+    float dis = 0;              // discount
+    float total = 0;            // total price
 
-    cout << "\n\n\t\t\t\t RECEIPT";
+    // open database
     data.open("database.txt", ios::in);
 
+    // if database does not exist, return to menu
     if (!data)
     {
-        cout << "\n\n Empty database";
+        cout << "\n\nEmpty database\n\n";
+        menu();
     }
+    // if database exists, place the order
     else
     {
         data.close();
         list();
         
-        cout << "\n|__________________________________________________|\n";
-        cout << "\n|                                                  |\n";
-        cout << "\n|               Please place the order             |\n";
-        cout << "\n|                                                  |\n";
-        cout << "\n|__________________________________________________|\n";
+        cout << "\n ________________________________________ \n";
+        cout << "\n|                                        |\n";
+        cout << "\n|         Please place the order         |\n";
+        cout << "\n|________________________________________|\n";
 
         do
         {
-            m:      // where to jump
+            jump_rec:      // jump here
             cout << "\n\n Enter product code:";
             cin >> arrc[c];
             cout << "\n\n Enter the product quantity:";
@@ -367,7 +374,7 @@ void shopping::receipt()
                 if (arrc[c] == arrc[i])
                 {
                     cout << "\n\n Duplicate product code. Please try again";
-                    goto m;
+                    goto jump_rec;          // jump statement
                 }
             }
             c++;
@@ -376,7 +383,7 @@ void shopping::receipt()
         } while (choice == 'y');
 
         cout << "\n\n\t\t\t\t_________________RECEIPT____________________\n";
-        cout << "\n #\tProuct name\tProduct quantity\tPrice\tAmount\tAmount with discount\n";
+        cout << "\n #\tProduct name\tProduct quantity\tPrice\tAmount\tAmount with discount\n";
 
         for (int i = 0; i < c; i++)
         {

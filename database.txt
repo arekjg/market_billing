@@ -1,4 +1,0 @@
- 1 juice 20 1
- 2 eggs 20 5
- 3 chips 24 1
- 4 cheese 30 10
