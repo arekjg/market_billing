@@ -93,7 +93,7 @@ void shopping::administrator()
     cout << "\n\t\t|       4) Back to the manu          |";
     cout << "\n\t\t|____________________________________|";
 
-    cout << "\n\n\t Please enter your choise: ";
+    cout << "\n\n\t Please enter your choice: ";
     cin >> choice;
 
     switch (choice)
@@ -197,6 +197,7 @@ void shopping::add()
         // if token is 1, go back to menu to pass different product code
         if (token == 1)
         {
+            cout << "\n\n\This product code already exists, please pass different one.\n\n";
             goto jump_add;      // jump statement
         }
         else
@@ -205,7 +206,7 @@ void shopping::add()
             data << " " << pcode << " " << pname << " " << price << " " << dis << "\n";
             data.close();
         }
-        cout << "\n\n\t\t Record inserted!";
+        cout << "\n\n\tRecord inserted!\n\n";
     }
 }
 
@@ -259,11 +260,15 @@ void shopping::edit()
         data1.close();
 
         remove("database.txt");
-        rename("database1.txt", "database.txt");
+        if (rename("database1.txt", "database.txt") != 0)
+        {
+            perror("Error renaming file");
+        }
+        
 
         if (token == 0)
         {
-            cout << "\n\n Record not found sorry!";
+            cout << "\n\n Record not found!";
         }
     }
 
@@ -305,11 +310,14 @@ void shopping::rem()
         data.close();
         data1.close();
         remove("database.txt");
-        rename("database1.txt", "database.txt");
+        if (rename("database1.txt", "database.txt") != 0)
+        {
+            perror("Error renaming file");
+        }
 
         if (token == 0)
         {
-            cout << "\n\n Record not found";
+            cout << "\n\n Record not found!";
         }
     }
 }
@@ -420,3 +428,4 @@ int main()
 // improve the design
 // correct the misspelings
 // add comments
+// add function - after 1st addition there is no message "record inserted"
