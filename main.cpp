@@ -25,7 +25,7 @@ class shopping
 
 void shopping::menu()
 {
-    m:      // jump here
+    jump_menu:      // jump here
 
     int choice;
     string email;
@@ -41,13 +41,13 @@ void shopping::menu()
     cout << "\t\t|             2) Buyer                        |\n";
     cout << "\t\t|                                             |\n";
     cout << "\t\t|_____________3) Exit_________________________|\n";
-    cout << "\n\t\t Please select: ";
+    cout << "\n\t\tPlease select: ";
     cin >> choice;
 
     switch (choice)
     {
     case 1:
-        cout << "Please login \n";
+        cout << "Please login\n";
         cout << "Enter Email: ";
         cin >> email;
         cout << "Enter password: ";
@@ -63,17 +63,19 @@ void shopping::menu()
         }
         break;
 
-
     case 2:
         buyer();
+        break;
 
     case 3:
         exit(0);
+        break;
 
     default:
-        cout << "\nPlease select from the given options\n\n";
+        cout << "\nInvalid choice\n\n";
+        break;
     }
-    goto m;     // jump statement
+    goto jump_menu;     // jump statement
 }
 
 void shopping::administrator()
@@ -116,9 +118,9 @@ void shopping::administrator()
 
     default:
         cout << "\nInvalid choice!\n\n";
+        break;
     }
     goto jump_adm;     // jump statement
-
 }
 
 void shopping::buyer()
@@ -144,9 +146,11 @@ void shopping::buyer()
 
     case 2:
         menu();
+        break;
 
     default:
         cout << "\nInvalid choice\n\n";
+        break;
     }
     goto jump_buy;     // jump statement
 }
@@ -197,7 +201,7 @@ void shopping::add()
         // if token is 1, go back to menu to pass different product code
         if (token == 1)
         {
-            cout << "\n\n\This product code already exists, please pass different one.\n\n";
+            cout << "\n\nThis product code already exists, please pass different one.\n\n";
             goto jump_add;      // jump statement
         }
         else
@@ -220,8 +224,8 @@ void shopping::edit()
     float d;        // discount
     string n;       // name
 
-    cout << "\n\t\t\t Modify the record";
-    cout << "\n\t\t\t Enter the product code:";
+    cout << "\n\t Modify the record";
+    cout << "\n\t Enter the product code:";
     cin >> pkey;
 
     data.open("database.txt", ios::in);
@@ -238,16 +242,16 @@ void shopping::edit()
         {
             if (pkey == pcode)
             {
-                cout << "\n\t\t New product code: ";
+                cout << "\n\tNew product code: ";
                 cin >> c;
-                cout << "\n\t\t Name of the product: ";
+                cout << "\n\tName of the product: ";
                 cin >> n;
-                cout << "\n\t\t Price: ";
+                cout << "\n\tPrice: ";
                 cin >> p;
-                cout << "\n\t\t Discount: ";
+                cout << "\n\tDiscount: ";
                 cin >> d;
                 data1 << " " << c << " " << n << " " << p << " " << d << "\n";
-                cout << "\n\n\t\t Record edited";
+                cout << "\n\n\tRecord edited\n";
                 token++;
             }
             else
@@ -264,14 +268,12 @@ void shopping::edit()
         {
             perror("Error renaming file");
         }
-        
 
         if (token == 0)
         {
-            cout << "\n\n Record not found!";
+            cout << "\n\nRecord not found!\n\n";
         }
     }
-
 }
 
 void shopping::rem()
@@ -280,8 +282,8 @@ void shopping::rem()
     int pkey;
     int token = 0;
 
-    cout << "\n\n\t Delete product";
-    cout << "\n\n\t Enter the product code:";
+    cout << "\n\n\tDelete product";
+    cout << "\n\n\tEnter the product code:";
     cin >> pkey;
 
     data.open("database.txt", ios::in);
@@ -298,7 +300,7 @@ void shopping::rem()
         {
             if (pcode == pkey)
             {
-                cout << "\n\n\t Product deleted succesfully";
+                cout << "\n\n\tProduct deleted succesfully\n";
                 token++;
             }
             else
@@ -317,7 +319,7 @@ void shopping::rem()
 
         if (token == 0)
         {
-            cout << "\n\n Record not found!";
+            cout << "\n\n\tRecord not found!\n";
         }
     }
 }
@@ -327,7 +329,7 @@ void shopping::list()
     fstream data;
     data.open("database.txt", ios::in);
     cout << "\n\n|________________________________________________\n";
-    cout << "#\t\tName\t\tPrice\n";
+    cout << "Product #\t\tName\t\tPrice\n";
     cout << "\n\n|________________________________________________\n";
     data >> pcode >> pname >> price >> dis;
 
@@ -381,17 +383,17 @@ void shopping::receipt()
             {
                 if (arrc[c] == arrc[i])
                 {
-                    cout << "\n\n Duplicate product code. Please try again";
+                    cout << "\n\nDuplicate product code. Please try again";
                     goto jump_rec;          // jump statement
                 }
             }
             c++;
-            cout << "\n\n Do you want to buy another prouct? (y/n)";
+            cout << "\n\nDo you want to buy another prouct? (y/n)";
             cin >> choice;
         } while (choice == 'y');
 
         cout << "\n\n\t\t\t\t_________________RECEIPT____________________\n";
-        cout << "\n #\tProduct name\tProduct quantity\tPrice\tAmount\tAmount with discount\n";
+        cout << "\nProduct #\tProduct name\tProduct quantity\tPrice\tAmount\tAmount with discount\n";
 
         for (int i = 0; i < c; i++)
         {
@@ -404,7 +406,7 @@ void shopping::receipt()
                     amount = price * arrq[i];
                     dis = amount - (amount * dis / 100);
                     total = total + dis;
-                    cout << "\n" << "\t\t" << pcode << "\t\t" << pname << arrq[i] << "\t\t" << price << "\t\t" << amount << "\t\t" << dis;
+                    cout << "\n" << pcode << "\t\t" << pname << arrq[i] << "\t\t" << price << "\t\t" << amount << "\t\t" << dis;
                 }
                 data >> pcode >> pname >> price >> dis;
             }
@@ -412,7 +414,7 @@ void shopping::receipt()
         data.close();
     }
     cout << "\n\n____________________________________________________";
-    cout << "\n Total amount: " << total;
+    cout << "\nTotal amount: " << total;
 }
 
 int main()
@@ -424,8 +426,9 @@ int main()
 
 // TODO
 // receipt function - does not add products and their prices correctly
-// change repeated lines of code with new functions if possible
 // improve the design
 // correct the misspelings
 // add comments
 // add function - after 1st addition there is no message "record inserted"
+// eliminate warnings
+// bug - if user's choice is not an int there occurs an error and the app loops; choice variable needs to have some value before choosing
