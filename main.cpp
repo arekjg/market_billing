@@ -432,3 +432,4 @@ int main()
 // add function - after 1st addition there is no message "record inserted"
 // eliminate warnings
 // bug - if user's choice is not an int there occurs an error and the app loops; choice variable needs to have some value before choosing
+// change reapeted lines of code with new functions if possible
