@@ -44,6 +44,12 @@ void shopping::menu()
     cout << "\n\t\tPlease select: ";
     cin >> choice;
 
+    if (!cin)
+    {
+        cout << "\nInvalid choice - program will be terminated!\n\n";
+        choice = 3;
+    }
+
     switch (choice)
     {
     case 1:
