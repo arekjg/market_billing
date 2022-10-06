@@ -3,6 +3,8 @@
 using namespace std;
 
 // Basen on tutorial from: https://youtu.be/m2xt5KIEHvc
+// My changes:
+//      added terminate() function, which checks if user's input is an int, if not it terminates the app
 
 class shopping
 {
@@ -21,6 +23,7 @@ class shopping
         void rem();
         void list();
         void receipt();
+        void terminate(int choice);
 };
 
 void shopping::menu()
@@ -43,12 +46,8 @@ void shopping::menu()
     cout << "\t\t|_____________3) Exit_________________________|\n";
     cout << "\n\t\tPlease select: ";
     cin >> choice;
-
-    if (!cin)
-    {
-        cout << "\nInvalid choice - program will be terminated!\n\n";
-        choice = 3;
-    }
+    
+    terminate(choice);
 
     switch (choice)
     {
@@ -81,7 +80,7 @@ void shopping::menu()
         cout << "\nInvalid choice\n\n";
         break;
     }
-    goto jump_menu;     // jump statement
+    goto jump_menu;             // jump statement
 }
 
 void shopping::administrator()
@@ -103,6 +102,8 @@ void shopping::administrator()
 
     cout << "\n\n\t Please enter your choice: ";
     cin >> choice;
+
+    terminate(choice);
 
     switch (choice)
     {
@@ -143,6 +144,8 @@ void shopping::buyer()
     cout << "\n\t\t|____________________________|";
     cout << "\n\n\t\t    Enter your choice: ";
     cin >> choice;
+
+    terminate(choice);
 
     switch (choice)
     {
@@ -230,8 +233,8 @@ void shopping::edit()
     float d;        // discount
     string n;       // name
 
-    cout << "\n\t Modify the record";
-    cout << "\n\t Enter the product code:";
+    cout << "\n\tModify the record";
+    cout << "\n\tEnter the product code:";
     cin >> pkey;
 
     data.open("database.txt", ios::in);
@@ -295,7 +298,7 @@ void shopping::rem()
     data.open("database.txt", ios::in);
     if (!data)
     {
-        cout << "File doesn't exist";
+        cout << "\n\n\tFile doesn't exist";
     }
     else
     {
@@ -380,26 +383,26 @@ void shopping::receipt()
 
         do
         {
-            jump_rec:      // jump here
-            cout << "\n\n Enter product code:";
+            jump_rec:                   // jump here
+            cout << "\n\nEnter product code: ";
             cin >> arrc[c];
-            cout << "\n\n Enter the product quantity:";
+            cout << "\n\nEnter the product quantity: ";
             cin >> arrq[c];
             for (int i = 0; i < c ; i++)
             {
                 if (arrc[c] == arrc[i])
                 {
-                    cout << "\n\nDuplicate product code. Please try again";
+                    cout << "\n\nDuplicate product code. Please try again.";
                     goto jump_rec;          // jump statement
                 }
             }
             c++;
-            cout << "\n\nDo you want to buy another prouct? (y/n)";
+            cout << "\n\nDo you want to buy another prouct? (y/n) ";
             cin >> choice;
         } while (choice == 'y');
 
-        cout << "\n\n\t\t\t\t_________________RECEIPT____________________\n";
-        cout << "\nProduct #\tProduct name\tProduct quantity\tPrice\tAmount\tAmount with discount\n";
+        cout << "\n\n________________________________RECEIPT_____________________________________\n";
+        cout << "\nProduct #\t\tProduct name\t\tProduct quantity\t\tPrice\t\tAmount\t\tAmount with discount\n";
 
         for (int i = 0; i < c; i++)
         {
@@ -423,6 +426,16 @@ void shopping::receipt()
     cout << "\nTotal amount: " << total;
 }
 
+void shopping::terminate(int choice)
+{
+    // if user's choice is not an int, terminate app
+    if (isdigit(choice) == 0)
+    {
+        cout << "\nInvalid choice - program will be terminated!\n\n";
+        exit(0);
+    }
+}
+
 int main()
 {
     shopping s;
@@ -433,9 +446,6 @@ int main()
 // TODO
 // receipt function - does not add products and their prices correctly
 // improve the design
-// correct the misspelings
-// add comments
 // add function - after 1st addition there is no message "record inserted"
 // eliminate warnings
-// bug - if user's choice is not an int there occurs an error and the app loops; choice variable needs to have some value before choosing
 // change reapeted lines of code with new functions if possible
