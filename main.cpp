@@ -43,7 +43,8 @@ void shopping::menu()
     cout << "\t\t|                                             |\n";
     cout << "\t\t|             2) Buyer                        |\n";
     cout << "\t\t|                                             |\n";
-    cout << "\t\t|_____________3) Exit_________________________|\n";
+    cout << "\t\t|             3) Exit                         |\n";
+    cout << "\t\t|_____________________________________________|\n";
     cout << "\n\t\tPlease select: ";
     cin >> choice;
     
@@ -397,7 +398,7 @@ void shopping::receipt()
                 }
             }
             c++;
-            cout << "\n\nDo you want to buy another prouct? (y/n) ";
+            cout << "\n\nDo you want to buy another product? (y/n) ";
             cin >> choice;
         } while (choice == 'y');
 
