@@ -2,10 +2,6 @@
 #include <fstream>
 using namespace std;
 
-// Basen on tutorial from: https://youtu.be/m2xt5KIEHvc
-// My changes:
-//      added terminate() function, which checks if user's input is an int, if not it terminates the app
-
 class shopping
 {
     private:
@@ -23,7 +19,6 @@ class shopping
         void rem();
         void list();
         void receipt();
-        void terminate(int choice);
 };
 
 void shopping::menu()
@@ -47,8 +42,6 @@ void shopping::menu()
     cout << "\t\t|_____________________________________________|\n";
     cout << "\n\t\tPlease select: ";
     cin >> choice;
-    
-    terminate(choice);
 
     switch (choice)
     {
@@ -104,8 +97,6 @@ void shopping::administrator()
     cout << "\n\n\t Please enter your choice: ";
     cin >> choice;
 
-    terminate(choice);
-
     switch (choice)
     {
     case 1:
@@ -145,8 +136,6 @@ void shopping::buyer()
     cout << "\n\t\t|____________________________|";
     cout << "\n\n\t\t    Enter your choice: ";
     cin >> choice;
-
-    terminate(choice);
 
     switch (choice)
     {
@@ -192,6 +181,7 @@ void shopping::add()
         data.open("database.txt", ios::app | ios::out);
         data << " " << pcode << " " << pname << " " << price << " " << dis << "\n";
         data.close();
+        cout << "\n\n\tRecord inserted!\n\n";
     }
     else
     {
@@ -235,7 +225,7 @@ void shopping::edit()
     string n;       // name
 
     cout << "\n\tModify the record";
-    cout << "\n\tEnter the product code:";
+    cout << "\n\tEnter the product code: ";
     cin >> pkey;
 
     data.open("database.txt", ios::in);
@@ -338,14 +328,14 @@ void shopping::list()
 {
     fstream data;
     data.open("database.txt", ios::in);
-    cout << "\n\n|________________________________________________\n";
-    cout << "Product #\t\tName\t\tPrice\n";
-    cout << "\n\n|________________________________________________\n";
+    cout << "\n\n\t______________________________";
+    cout << "\n\t#\tName\tPrice\n";
+    cout << "\n\t______________________________\n";
     data >> pcode >> pname >> price >> dis;
 
     while (!data.eof())
     {
-        cout << pcode << "\t\t" << pname << "\t\t" << price << "\n";
+        cout << "\t" << pcode << "\t" << pname << "\t" << price << "\n";
         data >> pcode >> pname >> price >> dis;
     }
     data.close();
@@ -377,33 +367,33 @@ void shopping::receipt()
         data.close();
         list();
         
-        cout << "\n ________________________________________ \n";
-        cout << "\n|                                        |\n";
-        cout << "\n|         Please place the order         |\n";
-        cout << "\n|________________________________________|\n";
+        cout << "\n\t ________________________________________ ";
+        cout << "\n\t|                                        |";
+        cout << "\n\t|         Please place the order         |";
+        cout << "\n\t|________________________________________|";
 
         do
         {
             jump_rec:                   // jump here
-            cout << "\n\nEnter product code: ";
+            cout << "\n\n\tEnter product code: ";
             cin >> arrc[c];
-            cout << "\n\nEnter the product quantity: ";
+            cout << "\n\n\tEnter the product quantity: ";
             cin >> arrq[c];
             for (int i = 0; i < c ; i++)
             {
                 if (arrc[c] == arrc[i])
                 {
-                    cout << "\n\nDuplicate product code. Please try again.";
+                    cout << "\n\n\tDuplicate product code. Please try again.";
                     goto jump_rec;          // jump statement
                 }
             }
             c++;
-            cout << "\n\nDo you want to buy another product? (y/n) ";
+            cout << "\n\n\tDo you want to buy another product? (y/n) ";
             cin >> choice;
         } while (choice == 'y');
 
-        cout << "\n\n________________________________RECEIPT_____________________________________\n";
-        cout << "\nProduct #\t\tProduct name\t\tProduct quantity\t\tPrice\t\tAmount\t\tAmount with discount\n";
+        cout << "\n\t\n________________________________RECEIPT_____________________________________\n";
+        cout << "\n\t#\tProduct name\tProduct quantity\tPrice\tAmount\tAmount with discount\n";
 
         for (int i = 0; i < c; i++)
         {
@@ -416,25 +406,15 @@ void shopping::receipt()
                     amount = price * arrq[i];
                     dis = amount - (amount * dis / 100);
                     total = total + dis;
-                    cout << "\n" << pcode << "\t\t" << pname << arrq[i] << "\t\t" << price << "\t\t" << amount << "\t\t" << dis;
+                    cout << "\n" << pcode << "\t" << pname << arrq[i] << "\t" << price << "\t" << amount << "\t" << dis;
                 }
                 data >> pcode >> pname >> price >> dis;
             }
         }
         data.close();
     }
-    cout << "\n\n____________________________________________________";
+    cout << "\n\n___________________________________________";
     cout << "\nTotal amount: " << total;
-}
-
-void shopping::terminate(int choice)
-{
-    // if user's choice is not an int, terminate app
-    if (isdigit(choice) == 0)
-    {
-        cout << "\nInvalid choice - program will be terminated!\n\n";
-        exit(0);
-    }
 }
 
 int main()
@@ -446,7 +426,4 @@ int main()
 
 // TODO
 // receipt function - does not add products and their prices correctly
-// improve the design
-// add function - after 1st addition there is no message "record inserted"
 // eliminate warnings
-// change reapeted lines of code with new functions if possible
