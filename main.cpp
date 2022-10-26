@@ -43,6 +43,13 @@ void shopping::menu()
     cout << "\n\t\tPlease select: ";
     cin >> choice;
 
+    // Terminate program if user's input is not an int
+    if (cin.fail())
+    {
+        cout << "\n\tInvalid choice - program will be terminated!\n\n";
+        exit(0);
+    }
+
     switch (choice)
     {
     case 1:
@@ -94,8 +101,15 @@ void shopping::administrator()
     cout << "\n\t\t|       4) Back to the manu          |";
     cout << "\n\t\t|____________________________________|";
 
-    cout << "\n\n\t Please enter your choice: ";
+    cout << "\n\n\tPlease enter your choice: ";
     cin >> choice;
+
+    // Terminate program if user's input is not an int
+    if (cin.fail())
+    {
+        cout << "\n\tInvalid choice - program will be terminated!\n\n";
+        exit(0);
+    }
 
     switch (choice)
     {
@@ -136,6 +150,13 @@ void shopping::buyer()
     cout << "\n\t\t|____________________________|";
     cout << "\n\n\t\t    Enter your choice: ";
     cin >> choice;
+
+    // Terminate program if user's input is not an int
+    if (cin.fail())
+    {
+        cout << "\n\tInvalid choice - program will be terminated!\n\n";
+        exit(0);
+    }
 
     switch (choice)
     {
