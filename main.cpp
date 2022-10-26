@@ -5,9 +5,9 @@ using namespace std;
 class shopping
 {
     private:
-        int pcode;      // product code
-        float price;    // price
-        float dis;      // discount
+        int pcode{};      // product code
+        float price{};    // price
+        float dis{};      // discount
         string pname;   // product name
 
     public:
@@ -414,7 +414,7 @@ void shopping::receipt()
         } while (choice == 'y');
 
         cout << "\n\t\n________________________________RECEIPT_____________________________________\n";
-        cout << "\n\t#\tProduct name\tProduct quantity\tPrice\tAmount\tAmount with discount\n";
+        cout << "\n\t#\tName\tQuantity\tPrice\tAmount\tWith discount\n";
 
         for (int i = 0; i < c; i++)
         {
@@ -427,14 +427,14 @@ void shopping::receipt()
                     amount = price * arrq[i];
                     dis = amount - (amount * dis / 100);
                     total = total + dis;
-                    cout << "\n" << pcode << "\t" << pname << arrq[i] << "\t" << price << "\t" << amount << "\t" << dis;
+                    cout << "\n\t" << pcode << "\t" << pname << "\t" << arrq[i] << "\t\t" << price << "\t" << amount << "\t" << dis;
                 }
                 data >> pcode >> pname >> price >> dis;
             }
         }
         data.close();
     }
-    cout << "\n\n___________________________________________";
+    cout << "\n\n___________________________________________________________________";
     cout << "\nTotal amount: " << total;
 }
 
@@ -447,4 +447,3 @@ int main()
 
 // TODO
 // receipt function - does not add products and their prices correctly
-// eliminate warnings
