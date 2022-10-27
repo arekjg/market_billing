@@ -416,6 +416,7 @@ void shopping::receipt()
         cout << "\n\t\n________________________________RECEIPT_____________________________________\n";
         cout << "\n\t#\tName\tQuantity\tPrice\tAmount\tWith discount\n";
 
+        // iterate through the database file
         for (int i = 0; i < c; i++)
         {
             data.open("database.txt", ios::in);
@@ -431,8 +432,8 @@ void shopping::receipt()
                 }
                 data >> pcode >> pname >> price >> dis;
             }
+            data.close();
         }
-        data.close();
     }
     cout << "\n\n___________________________________________________________________";
     cout << "\nTotal amount: " << total;
@@ -443,7 +444,3 @@ int main()
     shopping s;
     s.menu();
 }
-
-
-// TODO
-// receipt function - does not add products and their prices correctly
